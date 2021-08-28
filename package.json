@@ -2,5 +2,8 @@
   "name": "clean-ts-api",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.2.8"
+  }
 }
