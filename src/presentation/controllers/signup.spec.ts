@@ -1,7 +1,16 @@
 import { MissingParamError } from '../errors/missing-param-error'
+import { EmailValidator } from '../protocols/email-validator'
 import { SignUpController } from './signup'
 
-const makeSut = (): SignUpController => new SignUpController()
+const makeSut = (): SignUpController => {
+  class EmailValidatorStub implements EmailValidator {
+    isValid (email: string): boolean {
+      return true
+    }
+  }
+  const emailValidatorStub = new EmailValidatorStub()
+  return new SignUpController(emailValidatorStub)
+}
 
 describe('SignUp Controller', () => {
   test('Should return 400 if no name is provided', () => {
