@@ -1,5 +1,5 @@
 import { DbAddAccount } from './db-add-account'
-import { Encrypter } from './db-add-account-protocols'
+import { Encrypter, AddAccountRepository, AccountModel } from './db-add-account-protocols'
 
 interface SutTypes {
   sut: DbAddAccount
@@ -16,8 +16,14 @@ const makeEncrypter = (): Encrypter => {
 }
 
 const makeSut = (): SutTypes => {
+  class AddAccountRepositoryStub implements AddAccountRepository {
+    async add (accountData: AccountModel): Promise<AccountModel> {
+      return await new Promise(resolve => resolve(accountData))
+    }
+  }
+  const addAccountRepositoryStub = new AddAccountRepositoryStub()
   const encrypterStub = makeEncrypter()
-  const sut = new DbAddAccount(encrypterStub)
+  const sut = new DbAddAccount(encrypterStub, addAccountRepositoryStub)
   return {
     sut,
     encrypterStub
