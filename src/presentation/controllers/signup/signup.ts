@@ -9,8 +9,8 @@ import {
 } from './signup-protocols'
 
 export class SignUpController implements Controller {
-  emailValidator: EmailValidator
-  addAccount: AddAccount
+  private readonly emailValidator: EmailValidator
+  private readonly addAccount: AddAccount
 
   constructor (emailValidator: EmailValidator, addAccount: AddAccount) {
     this.emailValidator = emailValidator
