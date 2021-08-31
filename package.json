@@ -2,7 +2,9 @@
   "name": "clean-ts-api",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
   "license": "MIT",
+  "author": "Pedro-frontEnd",
   "scripts": {
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
