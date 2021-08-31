@@ -12,8 +12,10 @@
     "test:ci": "yarn test --coverage"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^2.0.3",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.0.1",
+    "@types/mongodb": "^4.0.7",
     "@types/node": "^16.7.4",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "eslint": "^7.32.0",
@@ -32,6 +34,7 @@
   "dependencies": {
     "@types/validator": "^13.6.3",
     "bcrypt": "^5.0.1",
+    "mongodb": "^4.1.1",
     "validator": "^13.6.0"
   }
 }
