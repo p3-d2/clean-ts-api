@@ -1,5 +1,6 @@
 import { LogControllerDecorator } from './log'
 import { Controller, HttpRequest, HttpResponse } from '../../presentation/protocols'
+import { LogErrorRepository } from '../../data/protocols/log-error-repository'
 
 interface SutTypes {
   sut: LogControllerDecorator
@@ -21,12 +22,29 @@ const makeController = (): Controller => {
   return new ControllerStub()
 }
 
+const makeLogErrorRepository = (): LogErrorRepository => {
+  class LogErrorRepositoryStub implements LogErrorRepository {
+    async log (stack: string): Promise<void> {
+      return await new Promise(resolve => resolve())
+    }
+  }
+  return new LogErrorRepositoryStub()
+}
+
+interface SutTypes {
+  sut: LogControllerDecorator
+  controllerStub: Controller
+  logErrorRepositoryStub: LogErrorRepository
+}
+
 const makeSut = (): SutTypes => {
   const controllerStub = makeController()
-  const sut = new LogControllerDecorator(controllerStub)
+  const logErrorRepositoryStub = makeLogErrorRepository()
+  const sut = new LogControllerDecorator(controllerStub, logErrorRepositoryStub)
   return {
     sut,
-    controllerStub
+    controllerStub,
+    logErrorRepositoryStub
   }
 }
 
