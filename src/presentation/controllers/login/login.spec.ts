@@ -1,15 +1,28 @@
 import { LoginController } from './login'
 import { MissingParamError } from '../../errors'
 import { badRequest } from '../../helpers/http-helper'
+import { EmailValidator } from '../signup/signup-protocols'
 
 interface sutTypes {
   sut: LoginController
+  emailValidatorStub: EmailValidator
+}
+
+const makeEmailValidator = (): EmailValidator => {
+  class EmailValidatorStub implements EmailValidator {
+    isValid (email: string): boolean {
+      return true
+    }
+  }
+  return new EmailValidatorStub()
 }
 
 const makeSut = (): sutTypes => {
-  const sut = new LoginController()
+  const emailValidatorStub = makeEmailValidator()
+  const sut = new LoginController(emailValidatorStub)
   return {
-    sut
+    sut,
+    emailValidatorStub
   }
 }
 
