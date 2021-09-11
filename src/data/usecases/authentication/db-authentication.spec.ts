@@ -5,6 +5,7 @@ import { DbAuthentication } from './db-authentication'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
 import { HashComparer } from '../../protocols/criptography/hash-comparer'
 import { TokenGenerator } from '../../protocols/criptography/token-generator'
+import { UpdateAccessTokenRepository } from '../../protocols/db/update-access-token-repository'
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'any_id',
@@ -17,6 +18,15 @@ const makeFakeAuthentication = (): AuthenticationModel => ({
   email: 'any_email@mail.com',
   password: 'any_password'
 })
+
+const makeUpdateAccessTokenRepository = (): UpdateAccessTokenRepository => {
+  class UpdateAccessTokenRepositoryStub implements UpdateAccessTokenRepository {
+    async update (id: string, token: string): Promise<void> {
+      return await new Promise(resolve => resolve())
+    }
+  }
+  return new UpdateAccessTokenRepositoryStub()
+}
 
 const makeTokenGenerator = (): TokenGenerator => {
   class TokenGeneratorStub implements TokenGenerator {
@@ -57,10 +67,12 @@ const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
   const hashComparerStub = makeFakeHashComparer()
   const tokenGeneratorStub = makeTokenGenerator()
+  const updateAccessTokenRepositoryStub = makeUpdateAccessTokenRepository()
   const sut = new DbAuthentication(
     loadAccountByEmailRepositoryStub,
     hashComparerStub,
-    tokenGeneratorStub
+    tokenGeneratorStub,
+    updateAccessTokenRepositoryStub
   )
   return {
     sut,
