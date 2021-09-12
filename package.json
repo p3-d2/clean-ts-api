@@ -6,7 +6,10 @@
   "license": "MIT",
   "author": "Pedro-frontEnd",
   "scripts": {
-    "start": "tsnd --respawn --transpile-only --ignore-watch node_modules src/main/server.ts",
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc",
+    "up": "npm run build && docker-compose up -d",
+    "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test --watch -c jest-unit-config.js",
@@ -38,7 +41,6 @@
     "rimraf": "^3.0.2",
     "supertest": "^6.1.6",
     "ts-jest": "^27.0.5",
-    "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.2"
   },
   "dependencies": {
