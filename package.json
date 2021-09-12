@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc",
-    "up": "npm run build && docker-compose up -d",
+    "up": "npm run build && docker-compose up",
     "down": "docker-compose down",
     "debug": "node --inspect=0.0.0.0:9222 --nolazy dist/main/server.js",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
