@@ -7,7 +7,7 @@ interface SutTypes {
   addAccountRepositoryStub: AddAccountRepository
 }
 
-const makeEncrypter = (): Hasher => {
+const makeHasher = (): Hasher => {
   class HasherStub implements Hasher {
     async hash (value: string): Promise<string> {
       return await new Promise(resolve => resolve('hashed_password'))
@@ -33,7 +33,7 @@ const makeAddAccountRepository = (): AddAccountRepository => {
 
 const makeSut = (): SutTypes => {
   const addAccountRepositoryStub = makeAddAccountRepository()
-  const hasherStub = makeEncrypter()
+  const hasherStub = makeHasher()
   const sut = new DbAddAccount(hasherStub, addAccountRepositoryStub)
   return {
     sut,
