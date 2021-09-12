@@ -1,9 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "module": "commonjs",                                /* Specify what module code is generated. */
+    "outDir": "dist",
+    "module": "commonjs",
     "target": "es2019",
     "esModuleInterop": true,
-    "allowJs": true
-  }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
