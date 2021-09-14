@@ -33,6 +33,24 @@ describe('Login Routes', () => {
         })
         .expect(200)
     })
+
+    test('Should return 403 if email is already in use', async () => {
+      const password = await hash('any_password', 12)
+      await accountCollection.insertOne({
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password
+      })
+      await request(app)
+        .post('/api/signup')
+        .send({
+          name: 'any_name',
+          email: 'any_email@mail.com',
+          password: 'any_password',
+          passwordConfirmation: 'any_password'
+        })
+        .expect(403)
+    })
   })
 
   describe('POST /login', () => {
