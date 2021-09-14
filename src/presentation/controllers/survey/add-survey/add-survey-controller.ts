@@ -1,4 +1,4 @@
-import { badRequest, serverError } from '../../../helpers/http/http-helper'
+import { badRequest, serverError, noContent } from '../../../helpers/http/http-helper'
 import {
   Controller,
   HttpRequest,
@@ -24,7 +24,7 @@ export class AddSurveyController implements Controller {
         question,
         answers
       })
-      return null
+      return noContent()
     } catch (error) {
       return serverError(error)
     }
