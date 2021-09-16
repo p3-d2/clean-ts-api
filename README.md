@@ -1,6 +1,5 @@
 [![Build Status](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api.svg?branch=main)](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api)
 [![Coverage Status](https://coveralls.io/repos/github/Pedro-frontEnd/clean-ts-api/badge.svg?branch=main)](https://coveralls.io/github/Pedro-frontEnd/clean-ts-api?branch=main)
-[![Known Vulnerabilities](https://snyk.io/test/github/Pedro-frontEnd/clean-ts-api/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Pedro-frontEnd/clean-ts-api?targetFile=package.json)
 
 
 # **Clean Node API**
@@ -8,15 +7,15 @@
 Essa API faz parte do treinamento do professor Rodrigo Manguinho (Mango) na Udemy.
 O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem definida e desacoplada, utilizando TDD (programação orientada a testes) como metodologia de trabalho, Clean Architecture para fazer a distribuição de responsabilidades em camadas, sempre seguindo os princípios do SOLID e, sempre que possível, aplicando Design Patterns para resolver alguns problemas comuns.
 
-> ## APIs previstas para esse treinamento:
+> ## APIs previstas para esse treinamento
 1. [Cadastro](./requirements/signup.md)
-1. [Login](./requirements/login.md)
-1. [Criar enquete](./requirements/add-survey.md)
-1. [Listar enquetes](./requirements/surveys.md)
-1. [Responder enquete](./requirements/answer-survey.md)
-1. [Resultado da enquete](./requirements/survey-result.md)
+2. [Login](./requirements/login.md)
+3. [Criar enquete](./requirements/add-survey.md)
+4. [Listar enquetes](./requirements/surveys.md)
+5. [Responder enquete](./requirements/answer-survey.md)
+6. [Resultado da enquete](./requirements/survey-result.md)
 
-> ## Princípios aplicados:
+> ## Princípios aplicados
 * Single Responsibility Principle (SRP)
 * Open Closed Principle (OCP)
 * Liskov Substitution Principle (LSP)
@@ -26,7 +25,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Composition Over Inheritance
 * Small Commits
 
-> ## Design Patterns aplicados:
+> ## Design Patterns aplicados
 * Factory
 * Adapter
 * Composite
@@ -35,7 +34,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Abstract Server
 * Composition Root
 
-> ## Metodologias/designs utilizados:
+> ## Metodologias/designs utilizados
 * TDD
 * Clean Architecture
 * DDD
@@ -48,7 +47,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Continuous Delivery
 * Continuous Deployment
 
-> ## Bibliotecas e ferramentas utilizadas:
+> ## Bibliotecas e ferramentas utilizadas
 * Yarn
 * Typescript
 * Git
@@ -70,7 +69,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Rimraf
 * In-Memory MongoDb Server
 
-> ## Features abordadas:
+> ## Features abordadas
 * Atalhos no Git
 * Log de Erro
 * Segurança (Hashing, Encryption e Encoding)
