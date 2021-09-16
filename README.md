@@ -1,5 +1,6 @@
 [![Build Status](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api.svg?branch=main)](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api)
 [![Coverage Status](https://coveralls.io/repos/github/Pedro-frontEnd/clean-ts-api/badge.svg?branch=main)](https://coveralls.io/github/Pedro-frontEnd/clean-ts-api?branch=main)
+[![Known Vulnerabilities](https://snyk.io/test/github/Pedro-frontEnd/clean-ts-api/badge.svg?targetFile=package.json)](https://snyk.io/test/github/Pedro-frontEnd/clean-ts-api?targetFile=package.json)
 
 
 # **Clean Node API**
