@@ -1,3 +1,7 @@
+[![Build Status](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api.svg?branch=main)](https://travis-ci.org/Pedro-frontEnd/clean-ts-api)
+[![Coverage Status](https://coveralls.io/repos/github/Pedro-frontEnd/clean-ts-api/badge.svg?branch=main)](https://coveralls.io/github/Pedro-frontEnd/clean-ts-api?branch=main)
+
+
 # **Clean Node API**
 
 Essa API faz parte do treinamento do professor Rodrigo Manguinho (Mango) na Udemy.
