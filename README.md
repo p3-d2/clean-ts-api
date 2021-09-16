@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api.svg?branch=main)](https://travis-ci.org/Pedro-frontEnd/clean-ts-api)
+[![Build Status](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api.svg?branch=main)](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api)
 [![Coverage Status](https://coveralls.io/repos/github/Pedro-frontEnd/clean-ts-api/badge.svg?branch=main)](https://coveralls.io/github/Pedro-frontEnd/clean-ts-api?branch=main)
 
 
@@ -43,6 +43,9 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Modular Design
 * Dependency Diagrams
 * Use Cases
+* Continuous Integration
+* Continuous Delivery
+* Continuous Deployment
 
 > ## Bibliotecas e ferramentas utilizadas:
 * Yarn
@@ -53,6 +56,8 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * MongoDb
 * Bcrypt
 * JsonWebToken
+* Travis CI
+* Coveralls
 * Validator
 * Express
 * Supertest
@@ -60,7 +65,6 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Lint Staged
 * Eslint
 * Standard Javascript Style
-* Sucrase
 * Nodemon
 * Rimraf
 * In-Memory MongoDb Server
