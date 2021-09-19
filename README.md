@@ -1,5 +1,8 @@
 [![Build Status](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api.svg?branch=main)](https://app.travis-ci.com/Pedro-frontEnd/clean-ts-api)
 [![Coverage Status](https://coveralls.io/repos/github/Pedro-frontEnd/clean-ts-api/badge.svg?branch=main)](https://coveralls.io/github/Pedro-frontEnd/clean-ts-api?branch=main)
+[![Known Vulnerabilities](https://snyk.io/test/github/pedro-frontend/clean-ts-api/badge.svg)](https://snyk.io/test/github/pedro-frontend/clean-ts-api)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 
 # **Clean Node API**
 
