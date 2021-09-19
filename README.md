@@ -28,6 +28,7 @@ The objective of the training is to show how to create an API with a well-define
 * Dependency Inversion Principle (DIP)
 * Don't Repeat Yourself (DRY)
 * You Aren't Gonna Need It (YAGNI)
+* Keep It Simple, Silly (KISS)
 * Composition Over Inheritance
 * Small Commits
 
