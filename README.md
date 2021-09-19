@@ -3,20 +3,20 @@
 
 # **Clean Node API**
 
-Essa API faz parte do treinamento do professor Rodrigo Manguinho (Mango) na Udemy.
+That api is part of teacher Rodrigo Manguinho training at Udemy
 
-O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem definida e desacoplada, utilizando TDD (programação orientada a testes) como metodologia de trabalho, Clean Architecture para fazer a distribuição de responsabilidades em camadas, sempre seguindo os princípios do SOLID e, sempre que possível, aplicando Design Patterns para resolver alguns problemas comuns.
+The objective of the training is to show how to create an API with a well-defined and decoupled architecture, using TDD (test-oriented programming) as a working methodology, Clean Architecture to distribute responsibilities in layers, always following the principles of SOLID and, whenever possible, applying Design Patterns to solve some common problems.
 
-> ## APIs previstas para esse treinamento
+> ## APIs provided for this training
 
-1. [Cadastro](./requirements/signup.md)
-2. [Login](./requirements/login.md)
-3. [Criar enquete](./requirements/add-survey.md)
-4. [Listar enquetes](./requirements/surveys.md)
-5. [Responder enquete](./requirements/answer-survey.md)
-6. [Resultado da enquete](./requirements/survey-result.md)
+1. [Sign Up](./requirements/signup.md)
+2. [Sign In](./requirements/login.md)
+3. [Create Survey](./requirements/add-survey.md)
+4. [List Surveys](./requirements/surveys.md)
+5. [Answer Survey](./requirements/answer-survey.md)
+6. [Survey Result](./requirements/survey-result.md)
 
-> ## Princípios
+> ## Principles
 
 * Single Responsibility Principle (SRP)
 * Open Closed Principle (OCP)
@@ -24,6 +24,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Interface Segregation Principle (ISP)
 * Dependency Inversion Principle (DIP)
 * Don't Repeat Yourself (DRY)
+* You Aren't Gonna Need It (YAGNI)
 * Composition Over Inheritance
 * Small Commits
 
@@ -38,7 +39,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Abstract Server
 * Composition Root
 
-> ## Metodologias e Designs
+> ## Methodologies and Designs
 
 * TDD
 * Clean Architecture
@@ -52,7 +53,7 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * Continuous Delivery
 * Continuous Deployment
 
-> ## Bibliotecas e Ferramentas
+> ## Libs and tools
 
 * NPM
 * Typescript
@@ -78,19 +79,19 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 * MockDate
 * Module-Alias
 
-> ## Features do Node
+> ## Node Features
 
-* Log de Erro
-* Segurança (Hashing, Encryption e Encoding)
+* Error log
+* Safety (Hashing, Encryption e Encoding)
 * CORS
 * Middlewares
-* Nível de Acesso nas Rotas (Admin, User e Anônimo)
-* Deploy no Heroku
+* Access level on routes (Admin, User e Anonymous)
+* Deploy on Heroku
 
-> ## Features do Git
+> ## Git Features
 
 * Alias
-* Log Personalizado
+* Log Personalized
 * Branch
 * Reset
 * Amend
@@ -101,20 +102,20 @@ O objetivo do treinamento é mostrar como criar uma API com uma arquitetura bem 
 
 > ## Features do Typescript
 
-* POO Avançado
+* POO Advanced
 * Interface
 * TypeAlias
 * Utility Types
-* Modularização de Paths
+* Modularization of Paths
 * Build
 * Deploy
-* Uso de Breakpoints
+* Use of Breakpoints
 
-> ## Features de Testes
+> ## Testes Features
 
-* Testes Unitários
-* Testes de Integração
-* Cobertura de Testes
+* Unit Testes
+* Integration Testes
+* Testes Coverage
 * Mocks
 * Stubs
 * Spies
