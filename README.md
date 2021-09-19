@@ -13,7 +13,7 @@ The objective of the training is to show how to create an API with a well-define
 2. [Sign In](./requirements/login.md)
 3. [Create Survey](./requirements/add-survey.md)
 4. [List Surveys](./requirements/load-surveys.md)
-5. [Answer Survey](./requirements/add-survey-result.md)
+5. [Answer Survey](./requirements/save-survey-result.md)
 6. [Survey Result](./requirements/load-survey-result.md)
 
 > ## Principles
