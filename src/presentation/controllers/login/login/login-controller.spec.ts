@@ -1,5 +1,5 @@
 import { MissingParamError } from '@/presentation/errors'
-import { AuthenticationModel } from '@/domain/usecases/authentication'
+import { AuthenticationModel } from '@/domain/usecases/account/authentication'
 import { badRequest, serverError, unauthorized, ok } from '@/presentation/helpers/http/http-helper'
 
 import { LoginController } from './login-controller'
