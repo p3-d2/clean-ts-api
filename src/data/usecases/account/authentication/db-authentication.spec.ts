@@ -1,5 +1,10 @@
 import { throwError, mockAuthentication } from '@/domain/test'
-import { mockHashComparer, mockEncrypter, mockLoadAccountByEmailRepository, mockUpdateAccessTokenRepository } from '@/data/test'
+import {
+  mockHashComparer,
+  mockEncrypter,
+  mockLoadAccountByEmailRepository,
+  mockUpdateAccessTokenRepository
+} from '@/data/test'
 
 import { DbAuthentication } from './db-authentication'
 import {
@@ -76,8 +81,7 @@ describe('DbAuthentication UseCase', () => {
 
   test('Should return null if HashComparer returns false', async () => {
     const { sut, hashComparerStub } = makeSut()
-    jest.spyOn(hashComparerStub, 'compare')
-      .mockReturnValueOnce(new Promise(resolve => resolve(false)))
+    jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(Promise.resolve(false))
     const accessToken = await sut.auth(mockAuthentication())
     expect(accessToken).toBeNull()
   })
