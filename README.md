@@ -124,3 +124,16 @@ The objective of the training is to show how to create an API with a well-define
 * Mocks
 * Stubs
 * Spies
+
+> ##  MongoDb Features
+
+* Connect e Reconnect
+* Collections
+* InsertOne e InserMany
+* Find, FindOne e FindOneAndUpdate
+* DeleteMany
+* UpdateOne
+* Aggregation (Match, Group, Unwind, Lookup, AddFields, Project)
+* ObjectId
+* Upsert e ReturnOriginal
+* Push, Divide, Multiply, ArrayElemAt, Filter, Cond, Sum
