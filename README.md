@@ -66,6 +66,7 @@ The objective of the training is to show how to create an API with a well-define
 * Jest
 * MongoDb
 * Travis CI
+* Swagger
 * Coveralls
 * Bcrypt
 * JsonWebToken
@@ -76,7 +77,6 @@ The objective of the training is to show how to create an API with a well-define
 * Lint Staged
 * Eslint
 * Standard Javascript Style
-* Sucrase
 * Nodemon
 * Rimraf
 * In-Memory MongoDb Server
@@ -85,6 +85,7 @@ The objective of the training is to show how to create an API with a well-define
 
 > ## Node Features
 
+* Documentação de API com Swagger
 * Error log
 * Safety (Hashing, Encryption e Encoding)
 * CORS
