@@ -1,0 +1,51 @@
+name: Deploy workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        mongodb-version: [4.4]
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: git fetch --prune --unshallow
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.1.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+
+    - name: Run lint
+      run: yarn lint
+
+    - name: Run all tests
+      run: yarn test
+
+    - name: Deploying to Heroku
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+        heroku_email: ${{ secrets.HEROKU_APP_EMAIL }}
