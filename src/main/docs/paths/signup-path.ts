@@ -2,7 +2,9 @@ export const signUpPath = {
   post: {
     tags: ['Login'],
     summary: 'API to create a user account',
+    description: 'This route can be run by **any user**',
     requestBody: {
+      required: true,
       content: {
         'application/json': {
           schema: {
