@@ -1,5 +1,5 @@
 import { throwError } from '@/domain/test'
-import { mockLoadSurveyById } from '@/presentation/test'
+import { mockLoadSurveyById, mockLoadSurveyResult } from '@/presentation/test'
 import { InvalidParamError } from '@/presentation/errors'
 import { forbidden, serverError } from '@/presentation/helpers/http/http-helper'
 
@@ -19,7 +19,8 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const loadSurveyByIdStub = mockLoadSurveyById()
-  const sut = new LoadSurveyResultController(loadSurveyByIdStub)
+  const loadSurveyResult = mockLoadSurveyResult()
+  const sut = new LoadSurveyResultController(loadSurveyByIdStub, loadSurveyResult)
   return {
     sut,
     loadSurveyByIdStub
