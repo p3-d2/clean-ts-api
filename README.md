@@ -42,6 +42,7 @@ The objective of the training is to show how to create an API with a well-define
 * Dependency Injection
 * Abstract Server
 * Composition Root
+* Builder
 
 > ## Methodologies and Designs
 
