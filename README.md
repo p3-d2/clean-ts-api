@@ -128,13 +128,14 @@ The objective of the training is to show how to create an API with a well-define
 
 > ##  MongoDb Features
 
-* Connect e Reconnect
+* Connect and Reconnect
 * Collections
-* InsertOne e InserMany
-* Find, FindOne e FindOneAndUpdate
+* InsertOne and InsertMany
+* Find, FindOne and FindOneAndUpdate
 * DeleteMany
 * UpdateOne
-* Aggregation (Match, Group, Unwind, Lookup, AddFields, Project)
+* Aggregation (Match, Group, Unwind, Lookup, AddFields, Project, Sort)
 * ObjectId
-* Upsert e ReturnOriginal
-* Push, Divide, Multiply, ArrayElemAt, Filter, Cond, Sum
+* Upsert
+* Push, Divide, Multiply, ArrayElemAt, Cond, Sum
+* Filter, Map, Reduce, MergeObjects, ConcatArrays
