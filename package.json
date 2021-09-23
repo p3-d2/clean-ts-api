@@ -1,6 +1,6 @@
 {
   "name": "clean-ts-api",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "main": "index.js",
   "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
   "license": "GPL-3.0-or-later",
