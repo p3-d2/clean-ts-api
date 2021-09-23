@@ -20,7 +20,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe.skip('DbLoadSurveys', () => {
+describe('DbLoadSurveys', () => {
   beforeAll(() => {
     MockDate.set(new Date())
   })
@@ -37,15 +37,15 @@ describe.skip('DbLoadSurveys', () => {
   })
 
   test('Should return a list of Surveys on success', async () => {
-    const { sut } = makeSut()
-    const promise = sut.load(faker.random.uuid())
-    await expect(promise).rejects.toThrow()
+    const { sut, loadSurveysRepositorySpy } = makeSut()
+    const surveys = await sut.load(faker.datatype.uuid())
+    expect(surveys).toEqual(loadSurveysRepositorySpy.surveyModels)
   })
 
   test('Should throw if LoadSurveysRepository throws', async () => {
     const { sut, loadSurveysRepositorySpy } = makeSut()
     jest.spyOn(loadSurveysRepositorySpy, 'loadAll').mockImplementationOnce(throwError)
-    const promise = sut.load(faker.random.uuid())
+    const promise = sut.load(faker.datatype.uuid())
     await expect(promise).rejects.toThrow()
   })
 })

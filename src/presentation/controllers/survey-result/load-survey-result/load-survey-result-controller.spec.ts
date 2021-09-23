@@ -10,6 +10,7 @@ import { forbidden, serverError, ok } from '@/presentation/helpers/http/http-hel
 import { LoadSurveyResultController } from './load-survey-result-controller'
 
 const mockRequest = (): HttpRequest => ({
+  accountId: faker.datatype.uuid(),
   params: {
     surveyId: faker.datatype.uuid()
   }
@@ -41,11 +42,12 @@ describe('LoadSurveyResult Controller', () => {
     MockDate.reset()
   })
 
-  test('Should call LoadSurveyById with correct value', async () => {
-    const { sut, loadSurveyByIdSpy } = makeSut()
+  test('Should call LoadSurveyById with correct values', async () => {
+    const { sut, loadSurveyResultSpy } = makeSut()
     const httpRequest = mockRequest()
     await sut.handle(httpRequest)
-    expect(loadSurveyByIdSpy.id).toBe(httpRequest.params.surveyId)
+    expect(loadSurveyResultSpy.surveyId).toBe(httpRequest.params.surveyId)
+    expect(loadSurveyResultSpy.accountId).toBe(httpRequest.accountId)
   })
 
   test('Should return 403 if LoadSurveyById returns null', async () => {
