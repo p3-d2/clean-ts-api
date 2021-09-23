@@ -114,6 +114,7 @@ describe('SurveyResultMongoRepository', () => {
       expect(surveyResult.answers[1].count).toBe(0)
       expect(surveyResult.answers[1].percent).toBe(0)
       expect(surveyResult.answers[1].isCurrentAccountAnswer).toBe(false)
+      expect(surveyResult.answers.length).toBe(survey.answers.length)
     })
 
     test('Should load survey result 2', async () => {
@@ -147,6 +148,7 @@ describe('SurveyResultMongoRepository', () => {
       expect(surveyResult.answers[1].count).toBe(1)
       expect(surveyResult.answers[1].percent).toBe(33)
       expect(surveyResult.answers[1].isCurrentAccountAnswer).toBe(false)
+      expect(surveyResult.answers.length).toBe(survey.answers.length)
     })
 
     test('Should load survey result 3', async () => {
@@ -175,6 +177,7 @@ describe('SurveyResultMongoRepository', () => {
       expect(surveyResult.answers[1].count).toBe(1)
       expect(surveyResult.answers[1].percent).toBe(50)
       expect(surveyResult.answers[1].isCurrentAccountAnswer).toBe(false)
+      expect(surveyResult.answers.length).toBe(survey.answers.length)
     })
 
     test('Should return null if there is no survey result', async () => {
