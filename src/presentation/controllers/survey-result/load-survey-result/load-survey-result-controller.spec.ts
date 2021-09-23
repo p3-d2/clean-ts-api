@@ -2,11 +2,11 @@ import faker from 'faker'
 import MockDate from 'mockdate'
 
 import { throwError } from '@/domain/test'
+import { HttpRequest } from '@/presentation/protocols'
 import { InvalidParamError } from '@/presentation/errors'
 import { LoadSurveyByIdSpy, LoadSurveyResultSpy } from '@/presentation/test'
 import { forbidden, serverError, ok } from '@/presentation/helpers/http/http-helper'
 
-import { HttpRequest } from './load-survey-result-controller-protocols'
 import { LoadSurveyResultController } from './load-survey-result-controller'
 
 const mockRequest = (): HttpRequest => ({

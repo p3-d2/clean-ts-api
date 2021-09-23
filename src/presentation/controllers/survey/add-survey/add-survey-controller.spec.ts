@@ -2,13 +2,11 @@ import faker from 'faker'
 import MockDate from 'mockdate'
 
 import { throwError } from '@/domain/test'
+import { HttpRequest } from '@/presentation/protocols'
 import { ValidationSpy, AddSurveySpy } from '@/presentation/test'
 import { badRequest, serverError, noContent } from '@/presentation/helpers/http/http-helper'
 
 import { AddSurveyController } from './add-survey-controller'
-import {
-  HttpRequest
-} from './add-survey-controller-protocols'
 
 const mockRequest = (): HttpRequest => ({
   body: {
