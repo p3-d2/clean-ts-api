@@ -33,11 +33,11 @@ const makeSut = (): SutTypes => {
 }
 
 describe('LoadSurveyResult Controller', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     MockDate.set(Date.now())
   })
 
-  afterEach(() => {
+  afterAll(() => {
     MockDate.reset()
   })
 

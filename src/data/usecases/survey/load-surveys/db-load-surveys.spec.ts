@@ -20,11 +20,11 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DbLoadSurveys', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     MockDate.set(new Date())
   })
 
-  afterEach(() => {
+  afterAll(() => {
     MockDate.reset()
   })
 
