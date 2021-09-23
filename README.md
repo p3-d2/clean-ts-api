@@ -68,9 +68,10 @@ The objective of the training is to show how to create an API with a well-define
 * MongoDb
 * Travis CI
 * Swagger
-* Coveralls
 * Bcrypt
 * JsonWebToken
+* Faker
+* Coveralls
 * Validator
 * Express
 * Supertest
@@ -119,12 +120,14 @@ The objective of the training is to show how to create an API with a well-define
 
 > ## Testes Features
 
-* Unit Testes
-* Integration Testes
-* Testes Coverage
+* Unit Test
+* Integration Test
+* Test Coverage
+* Test Doubles
 * Mocks
 * Stubs
 * Spies
+* Fakes
 
 > ##  MongoDb Features
 
