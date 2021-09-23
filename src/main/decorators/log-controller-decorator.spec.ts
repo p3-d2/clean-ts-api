@@ -13,7 +13,7 @@ class ControllerSpy implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     this.httpRequest = httpRequest
-    return await Promise.resolve(this.httpResponse)
+    return this.httpResponse
   }
 }
 

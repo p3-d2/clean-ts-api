@@ -9,7 +9,7 @@ export class SaveSurveyResultSpy implements SaveSurveyResult {
 
   async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
     this.saveSurveyResultParams = data
-    return await Promise.resolve(this.surveyResultModel)
+    return this.surveyResultModel
   }
 }
 
@@ -19,6 +19,6 @@ export class LoadSurveyResultSpy implements LoadSurveyResult {
 
   async load (surveyId: string): Promise<SurveyResultModel> {
     this.surveyId = surveyId
-    return await Promise.resolve(this.surveyResultModel)
+    return this.surveyResultModel
   }
 }
