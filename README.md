@@ -7,9 +7,9 @@
 
 # **Clean Node API**
 
-That api is part of teacher Rodrigo Manguinho training at Udemy
+![Project logo](./public/img/logo.png)
 
-The objective of the training is to show how to create an API with a well-defined and decoupled architecture, using TDD (test-oriented programming) as a working methodology, Clean Architecture to distribute responsibilities in layers, always following the principles of SOLID and, whenever possible, applying Design Patterns to solve some common problems.
+That api is part of teacher Rodrigo Manguinho training at Udemy
 
 > ## APIs provided for this training
 
