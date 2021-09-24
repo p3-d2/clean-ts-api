@@ -1,21 +1,21 @@
-# Responder enquete
+# Answer survey
 
-> ## Caso de sucesso
+> ## Success case
 
-1. ✅ Recebe uma requisição do tipo **PUT** na rota **/api/surveys/{survey_id}/results**
-2. ✅ Valida se a requisição foi feita por um **usuário**
-3. ✅ Valida o parâmetro **survey_id**
-4. ✅ Valida se o campo **answer** é uma resposta válida
-5. ✅ **Cria** um resultado de enquete com os dados fornecidos caso não tenha um registro
-6. ✅ **Atualiza** um resultado de enquete com os dados fornecidos caso já tenha um registro
-7. ✅ Retorna **200** com os dados do resultado da enquete
+1. ✅ Receives a request of type **PUT** in the route **/api/surveys/{survey_id}/results**
+2. ✅ Validates if the request was made by an **user**
+3. ✅ Validate the parameter **survey_id**
+4. ✅ Validates if the field **answer** is a valid answer
+5. ✅ **Create** a survey result with the data provided if you do not have a record
+6. ✅ **Update** a survey result with the data provided if you already have a record
+7. ✅ Returns **200** with the data from the poll results
 
-> ## Exceções
+> ## Exceptions
 
-1. ✅ Retorna erro **404** se a API não existir
-2. ✅ Retorna erro **403** se não for um usuário
-3. ✅ Retorna erro **403** se o survey_id passado na URL for inválido
-4. ✅ Retorna erro **403** se a resposta enviada pelo client for uma resposta inválida
-5. ✅ Retorna erro **500** se der erro ao tentar criar o resultado da enquete
-6. ✅ Retorna erro **500** se der erro ao tentar atualizar o resultado da enquete
-7. ✅ Retorna erro **500** se der erro ao tentar carregar a enquete
+1. ✅ Returns **404** error if a API does not exists
+2. ✅ Returns **403** error if not a user
+3. ✅ Returns **403** error if the survey_id passed in the URL is invalid
+4. ✅ Returns **403** error if the response sent by the client is an invalid response
+5. ✅ Returns **500** error if make an error when trying to create the survey result
+6. ✅ Returns **500** error if fails when trying to update the survey result
+7. ✅ Returns **500** error if fails when trying to load the poll
