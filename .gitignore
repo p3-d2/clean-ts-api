@@ -5,3 +5,4 @@ coverage
 globalconfig.json
 data
 !src/data
+!tests/data
