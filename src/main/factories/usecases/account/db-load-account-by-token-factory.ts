@@ -1,5 +1,5 @@
 import env from '@/main/config/env'
-import { JwtAdapter } from '@/infra/criptography'
+import { JwtAdapter } from '@/infra/cryptography'
 import { AccountMongoRepository } from '@/infra/db'
 import { LoadAccountByToken } from '@/domain/usecases'
 import { DbLoadAccountByToken } from '@/data/usecases'
