@@ -114,6 +114,7 @@ That api is part of teacher Rodrigo Manguinho training at Udemy
 * POO Advanced
 * Interface
 * TypeAlias
+* Namespace
 * Utility Types
 * Modularization of Paths
 * Build
