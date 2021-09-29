@@ -2,9 +2,9 @@ import faker from 'faker'
 
 import { InvalidParamError } from '@/presentation/errors'
 
-import { throwError } from '@/../tests/domain/mocks'
+import { throwError } from '@/tests/domain/mocks'
 import { EmailValidation } from '@/validation/validators'
-import { EmailValidatorSpy } from '@/../tests/validation/mocks'
+import { EmailValidatorSpy } from '@/tests/validation/mocks'
 
 const field = faker.random.word()
 

@@ -1,11 +1,11 @@
 import faker from 'faker'
 import MockDate from 'mockdate'
 
-import { throwError } from '@/../tests/domain/mocks'
+import { throwError } from '@/tests/domain/mocks'
 import { InvalidParamError } from '@/presentation/errors'
-import { SaveSurveyResultController } from '@/presentation/controllers'
 import { forbidden, serverError, ok } from '@/presentation/helpers'
-import { SaveSurveyResultSpy, LoadSurveyByIdSpy } from '@/../tests/presentation/mocks'
+import { SaveSurveyResultController } from '@/presentation/controllers'
+import { SaveSurveyResultSpy, LoadSurveyByIdSpy } from '@/tests/presentation/mocks'
 
 const mockRequest = (answer: string = null): SaveSurveyResultController.Request => ({
   answer,

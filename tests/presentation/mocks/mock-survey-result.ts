@@ -1,5 +1,5 @@
 import { SurveyResultModel } from '@/domain/models'
-import { mockSurveyResultModel } from '@/../tests/domain/mocks'
+import { mockSurveyResultModel } from '@/tests/domain/mocks'
 import { SaveSurveyResult, SaveSurveyResultParams, LoadSurveyResult } from '@/domain/usecases'
 
 export class SaveSurveyResultSpy implements SaveSurveyResult {

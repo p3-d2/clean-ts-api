@@ -1,11 +1,11 @@
 import faker from 'faker'
 import MockDate from 'mockdate'
 
-import { throwError } from '@/../tests/domain/mocks'
+import { throwError } from '@/tests/domain/mocks'
 import { InvalidParamError } from '@/presentation/errors'
 import { forbidden, serverError, ok } from '@/presentation/helpers'
 import { LoadSurveyResultController } from '@/presentation/controllers'
-import { LoadSurveyByIdSpy, LoadSurveyResultSpy } from '@/../tests/presentation/mocks'
+import { LoadSurveyByIdSpy, LoadSurveyResultSpy } from '@/tests/presentation/mocks'
 
 const mockRequest = (): LoadSurveyResultController.Request => ({
   accountId: faker.datatype.uuid(),

@@ -1,10 +1,10 @@
 import faker from 'faker'
 
-import { throwError } from '@/../tests/domain/mocks'
+import { throwError } from '@/tests/domain/mocks'
 import { SignUpController } from '@/presentation/controllers'
 import { ok, serverError, badRequest, forbidden } from '@/presentation/helpers'
 import { MissingParamError, ServerError, EmailInUseError } from '@/presentation/errors'
-import { AuthenticationSpy, ValidationSpy, AddAccountSpy } from '@/../tests/presentation/mocks'
+import { AuthenticationSpy, ValidationSpy, AddAccountSpy } from '@/tests/presentation/mocks'
 
 const mockRequest = (): SignUpController.Request => {
   const password = faker.internet.password()

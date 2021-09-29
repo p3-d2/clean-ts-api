@@ -2,9 +2,9 @@ import faker from 'faker'
 
 import { MissingParamError } from '@/presentation/errors'
 
-import { throwError } from '@/../tests/domain/mocks'
+import { throwError } from '@/tests/domain/mocks'
 import { LoginController } from '@/presentation/controllers'
-import { AuthenticationSpy, ValidationSpy } from '@/../tests/presentation/mocks'
+import { AuthenticationSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { badRequest, serverError, unauthorized, ok } from '@/presentation/helpers'
 
 const mockRequest = (): LoginController.Request => ({

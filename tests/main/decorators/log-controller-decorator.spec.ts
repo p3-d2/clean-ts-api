@@ -1,9 +1,9 @@
 import faker from 'faker'
 
+import { mockAccountModel } from '@/tests/domain/mocks'
 import { serverError, ok } from '@/presentation/helpers'
-import { mockAccountModel } from '@/../tests/domain/mocks'
 import { LogControllerDecorator } from '@/main/decorators'
-import { LogErrorRepositorySpy } from '@/../tests/data/mocks'
+import { LogErrorRepositorySpy } from '@/tests/data/mocks'
 import { Controller, HttpResponse } from '@/presentation/protocols'
 
 class ControllerSpy implements Controller {

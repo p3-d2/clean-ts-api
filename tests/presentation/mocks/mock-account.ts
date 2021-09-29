@@ -1,6 +1,6 @@
 import faker from 'faker'
 
-import { mockAccountModel } from '@/../tests/domain/mocks'
+import { mockAccountModel } from '@/tests/domain/mocks'
 import { AccountModel, AuthenticationModel } from '@/domain/models'
 import {
   AddAccount,
