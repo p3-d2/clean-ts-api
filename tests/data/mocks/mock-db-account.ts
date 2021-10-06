@@ -9,11 +9,11 @@ import {
 } from '@/data/protocols'
 
 export class AddAccountRepositorySpy implements AddAccountRepository {
-  addAccountParams: AddAccountRepository.Params
+  params: AddAccountRepository.Params
   result = true
 
-  async add (data: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
-    this.addAccountParams = data
+  async add (params: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
+    this.params = params
     return this.result
   }
 }
@@ -21,7 +21,7 @@ export class AddAccountRepositorySpy implements AddAccountRepository {
 export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailRepository {
   email: string
   result = {
-    id: faker.random.uuid(),
+    id: faker.datatype.uuid(),
     name: faker.name.findName(),
     password: faker.internet.password()
   }

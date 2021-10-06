@@ -8,24 +8,24 @@ import {
 
 export class AddAccountSpy implements AddAccount {
   result = true
-  addAccountParams: AddAccount.Params
+  params: AddAccount.Params
 
-  async add (account: AddAccount.Params): Promise<AddAccount.Result> {
-    this.addAccountParams = account
+  async add (params: AddAccount.Params): Promise<AddAccount.Result> {
+    this.params = params
     return this.result
   }
 }
 
 export class AuthenticationSpy implements Authentication {
-  authenticationParams: Authentication.Params
-  authenticationModel = {
+  params: Authentication.Params
+  result = {
     accessToken: faker.datatype.uuid(),
     name: faker.name.findName()
   }
 
-  async auth (authenticationParams: Authentication.Params): Promise<Authentication.Result> {
-    this.authenticationParams = authenticationParams
-    return this.authenticationModel
+  async auth (params: Authentication.Params): Promise<Authentication.Result> {
+    this.params = params
+    return this.result
   }
 }
 

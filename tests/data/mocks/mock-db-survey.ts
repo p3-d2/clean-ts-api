@@ -1,6 +1,5 @@
 import faker from 'faker'
 
-import { SurveyModel } from '@/domain/models/survey'
 import { mockSurveyModel, mockSurveyModels } from '@/tests/domain/mocks'
 import {
   AddSurveyRepository,
@@ -11,16 +10,16 @@ import {
 } from '@/data/protocols'
 
 export class AddSurveyRepositorySpy implements AddSurveyRepository {
-  addSurveyParams: AddSurveyRepository.Params
+  params: AddSurveyRepository.Params
 
-  async add (data: AddSurveyRepository.Params): Promise<void> {
-    this.addSurveyParams = data
+  async add (params: AddSurveyRepository.Params): Promise<void> {
+    this.params = params
   }
 }
 
 export class LoadSurveyByIdRepositorySpy implements LoadSurveyByIdRepository {
-  result = mockSurveyModel()
   id: string
+  result = mockSurveyModel()
 
   async loadById (id: string): Promise<LoadSurveyByIdRepository.Result> {
     this.id = id
@@ -29,8 +28,11 @@ export class LoadSurveyByIdRepositorySpy implements LoadSurveyByIdRepository {
 }
 
 export class LoadAnswersBySurveyRepositorySpy implements LoadAnswersBySurveyRepository {
-  result = [faker.random.word(), faker.random.word()]
   id: string
+  result = [
+    faker.random.word(),
+    faker.random.word()
+  ]
 
   async loadAnswers (id: string): Promise<LoadAnswersBySurveyRepository.Result> {
     this.id = id
@@ -39,8 +41,8 @@ export class LoadAnswersBySurveyRepositorySpy implements LoadAnswersBySurveyRepo
 }
 
 export class CheckSurveyByIdRepositorySpy implements CheckSurveyByIdRepository {
-  result = true
   id: string
+  result = true
 
   async checkById (id: string): Promise<CheckSurveyByIdRepository.Result> {
     this.id = id
@@ -49,11 +51,11 @@ export class CheckSurveyByIdRepositorySpy implements CheckSurveyByIdRepository {
 }
 
 export class LoadSurveysRepositorySpy implements LoadSurveysRepository {
-  surveyModels = mockSurveyModels()
   accountId: string
+  result = mockSurveyModels()
 
-  async loadAll (accountId: string): Promise<SurveyModel[]> {
+  async loadAll (accountId: string): Promise<LoadSurveysRepository.Result> {
     this.accountId = accountId
-    return this.surveyModels
+    return this.result
   }
 }
