@@ -82,7 +82,7 @@ describe('SurveyMongoRepository', () => {
     })
   })
 
-  describe.only('checkById()', () => {
+  describe('checkById()', () => {
     test('Should return true if survey exists', async () => {
       const { insertedId } = await surveyCollection.insertOne(mockAddSurveyParams())
       console.log('ID', insertedId)
