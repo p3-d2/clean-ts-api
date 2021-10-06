@@ -89,7 +89,7 @@ That api is part of teacher Rodrigo Manguinho training at Udemy
 
 > ## Node Features
 
-* Documentação de API com Swagger
+* API documentation with Swagger
 * Error log
 * Safety (Hashing, Encryption e Encoding)
 * CORS

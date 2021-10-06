@@ -81,4 +81,20 @@ describe('SurveyMongoRepository', () => {
       expect(survey.id).toBeTruthy()
     })
   })
+
+  describe.only('checkById()', () => {
+    test('Should return true if survey exists', async () => {
+      const { insertedId } = await surveyCollection.insertOne(mockAddSurveyParams())
+      console.log('ID', insertedId)
+      const sut = makeSut()
+      const exists = await sut.checkById(insertedId.toString())
+      expect(exists).toBe(true)
+    })
+
+    test('Should return false if survey exists', async () => {
+      const sut = makeSut()
+      const exists = await sut.checkById('000aaaaa000000000a000a00')
+      expect(exists).toBe(false)
+    })
+  })
 })
