@@ -1,13 +1,18 @@
 import express from 'express'
 
-import setupMiddlewares from './middlewares'
-import setupSwagger from './config-swagger'
+import { setupApolloServer } from '@/main/graphql/apollo'
+
 import setupRoutes from './routes'
+import setupSwagger from './swagger'
+import setupMiddlewares from './middlewares'
 
 const app = express()
 
-setupMiddlewares(app)
-setupSwagger(app)
-setupRoutes(app)
+;(async () => {
+  await setupApolloServer(app)
+  setupMiddlewares(app)
+  setupSwagger(app)
+  setupRoutes(app)
+})()
 
 export default app
