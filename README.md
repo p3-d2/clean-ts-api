@@ -76,6 +76,9 @@ That api is part of teacher Rodrigo Manguinho training at Udemy
 * Coveralls
 * Validator
 * Express
+* Apollo Server Express
+* Graphql
+* Graphql ISO Date
 * Supertest
 * Husky
 * Lint Staged
@@ -96,6 +99,15 @@ That api is part of teacher Rodrigo Manguinho training at Udemy
 * Middlewares
 * Access level on routes (Admin, User e Anonymous)
 * Deploy on Heroku
+
+> ## Features do GraphQL
+* Types
+* Queries
+* Mutations
+* Resolvers
+* Directives
+* Scalars
+* Plugins
 
 > ## Git Features
 
