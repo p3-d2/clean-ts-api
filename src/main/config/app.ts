@@ -9,10 +9,12 @@ import setupMiddlewares from './middlewares'
 const app = express()
 
 ;(async () => {
-  await setupApolloServer(app)
   setupMiddlewares(app)
   setupSwagger(app)
   setupRoutes(app)
+  const apolloServer = setupApolloServer()
+  await apolloServer.start()
+  apolloServer.applyMiddleware({ app })
 })()
 
 export default app
