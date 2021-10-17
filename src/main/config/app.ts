@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Express } from 'express'
 
 import { setupApolloServer } from '@/main/graphql/apollo'
 
@@ -8,13 +8,12 @@ import setupMiddlewares from './middlewares'
 
 const app = express()
 
-;(async () => {
+export const setupApp = async (): Promise<Express> => {
   setupMiddlewares(app)
   setupSwagger(app)
   setupRoutes(app)
   const apolloServer = setupApolloServer()
   await apolloServer.start()
   apolloServer.applyMiddleware({ app })
-})()
-
-export default app
+  return app
+}

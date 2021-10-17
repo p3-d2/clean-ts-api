@@ -1,9 +1,10 @@
 import { hash } from 'bcrypt'
 import request from 'supertest'
+import { Express } from 'express'
 import { Collection } from 'mongodb'
 
-import app from '@/main/config/app'
 import { MongoHelper } from '@/infra/db'
+import { setupApp } from '@/main/config/app'
 
 let accountCollection: Collection
 
@@ -17,7 +18,10 @@ const insertFakeUser = async (): Promise<void> => {
 }
 
 describe('Login Routes', () => {
+  let app: Express
+
   beforeAll(async () => {
+    app = await setupApp()
     await MongoHelper.connect(process.env.MONGO_URL)
   })
 
