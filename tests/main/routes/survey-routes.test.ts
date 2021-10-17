@@ -4,7 +4,7 @@ import { Collection } from 'mongodb'
 
 import app from '@/main/config/app'
 import env from '@/main/config/env'
-import { MongoHelper } from '@/infra/db/mongodb/mongo-helper'
+import { MongoHelper } from '@/infra/db'
 
 let surveyCollection: Collection
 let accountCollection: Collection
