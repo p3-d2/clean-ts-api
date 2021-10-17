@@ -2,24 +2,24 @@
   "name": "clean-ts-api",
   "version": "2.6.0",
   "main": "index.js",
-  "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
+  "description": "NodeJs Rest API and GraphQL using TDD, Clean Architecture, Typescript and Design Patterns",
   "license": "GPL-3.0-or-later",
   "author": "Pedro-frontEnd",
   "repository": "github:Pedro-frontEnd/clean-ts-api",
+  "homepage": "https://github.com/Pedro-frontEnd",
   "scripts": {
     "start": "node dist/main/server.js",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
-    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --no-cache",
-    "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test --watch -c jest-unit-config.js",
     "test:integration": "yarn test --watch -c jest-integration-config.js",
     "test:staged": "yarn test --findRelatedTests",
     "test:ci": "yarn test --coverage",
     "test:coveralls": "yarn test:ci && coveralls < coverage/lcov.info",
-    "lint": "eslint ./src --ext .ts"
+    "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^2.1.0",
