@@ -100,7 +100,7 @@ That api is part of teacher Rodrigo Manguinho training at Udemy
 * Access level on routes (Admin, User e Anonymous)
 * Deploy on Heroku
 
-> ## Features do GraphQL
+> ## GraphQL Features
 * Types
 * Queries
 * Mutations
@@ -136,7 +136,7 @@ That api is part of teacher Rodrigo Manguinho training at Udemy
 > ## Testes Features
 
 * Unit Test
-* Integration Test
+* Integration Test (Rest and GraphQL)
 * Test Coverage
 * Test Doubles
 * Mocks
