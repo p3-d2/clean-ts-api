@@ -1,15 +1,31 @@
+import { hash } from 'bcrypt'
+import request from 'supertest'
+import { Express } from 'express'
+import { Collection } from 'mongodb'
+
 import { MongoHelper } from '@/infra/db'
 import { setupApp } from '@/main/config/app'
 
-import { Collection } from 'mongodb'
-import { hash } from 'bcrypt'
-import { Express } from 'express'
-import request from 'supertest'
-
 let accountCollection: Collection
-let app: Express
+
+const defaultUser = {
+  name: 'Pedro',
+  email: 'pedro.contato.email@gmail.com',
+  password: '123'
+}
+
+const insertUser = async (): Promise<string> => {
+  const password = await hash(defaultUser.password, 12)
+  const { insertedId } = await accountCollection.insertOne({
+    ...defaultUser,
+    password
+  })
+  return insertedId.toString()
+}
 
 describe('Login GraphQL', () => {
+  let app: Express
+
   beforeAll(async () => {
     app = await setupApp()
     await MongoHelper.connect(process.env.MONGO_URL)
@@ -26,26 +42,20 @@ describe('Login GraphQL', () => {
 
   describe('Login Query', () => {
     const query = `query {
-      login (email: "pedro.contato.email@gmail.com", password: "123") {
+      login (email: "${defaultUser.email}", password: "${defaultUser.password}") {
         accessToken
         name
       }
     }`
 
     test('Should return an Account on valid credentials', async () => {
-      const name = 'Pedro'
-      const password = await hash('123', 12)
-      await accountCollection.insertOne({
-        name,
-        email: 'pedro.contato.email@gmail.com',
-        password
-      })
+      await insertUser()
       const res = await request(app)
         .post('/graphql')
         .send({ query })
       expect(res.status).toBe(200)
       expect(res.body.data.login.accessToken).toBeTruthy()
-      expect(res.body.data.login.name).toBe(name)
+      expect(res.body.data.login.name).toBe(defaultUser.name)
     })
 
     test('Should return UnauthorizedError on invalid credentials', async () => {
@@ -60,7 +70,7 @@ describe('Login GraphQL', () => {
 
   describe('SignUp Mutation', () => {
     const query = `mutation {
-      signUp (name: "Pedro", email: "pedro.contato.email@gmail.com", password: "123", passwordConfirmation: "123") {
+      signUp (name: "${defaultUser.name}", email: "${defaultUser.email}", password: "${defaultUser.password}", passwordConfirmation: "${defaultUser.password}") {
         accessToken
         name
       }
@@ -72,16 +82,11 @@ describe('Login GraphQL', () => {
         .send({ query })
       expect(res.status).toBe(200)
       expect(res.body.data.signUp.accessToken).toBeTruthy()
-      expect(res.body.data.signUp.name).toBe('Pedro')
+      expect(res.body.data.signUp.name).toBe(defaultUser.name)
     })
 
     test('Should return EmailInUseError on invalid data', async () => {
-      const password = await hash('123', 12)
-      await accountCollection.insertOne({
-        name: 'Pedro',
-        email: 'pedro.contato.email@gmail.com',
-        password
-      })
+      await insertUser()
       const res = await request(app)
         .post('/graphql')
         .send({ query })

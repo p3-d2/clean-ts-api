@@ -27,6 +27,20 @@ const mockAccessToken = async (): Promise<string> => {
   return accessToken
 }
 
+const insertSurvey = async (date = new Date()): Promise<string> => {
+  const { insertedId } = await surveyCollection.insertOne({
+    question: 'Question',
+    answers: [{
+      answer: 'Answer 1',
+      image: 'http://image-name.com'
+    }, {
+      answer: 'Answer 2'
+    }],
+    date
+  })
+  return insertedId.toString()
+}
+
 describe('Survey GraphQL', () => {
   let app: Express
 
@@ -63,16 +77,7 @@ describe('Survey GraphQL', () => {
     test('Should return Surveys', async () => {
       const accessToken = await mockAccessToken()
       const date = new Date()
-      await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date
-      })
+      await insertSurvey(date)
 
       const res = await request(app)
         .post('/graphql')
@@ -95,16 +100,7 @@ describe('Survey GraphQL', () => {
     })
 
     test('Should return AccessDeniedError if no token is provided', async () => {
-      await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
+      await insertSurvey()
       const res = await request(app)
         .post('/graphql')
         .send({ query })

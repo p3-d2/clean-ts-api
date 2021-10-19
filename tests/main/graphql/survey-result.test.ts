@@ -14,7 +14,8 @@ const mockAccessToken = async (): Promise<string> => {
   const { insertedId } = await accountCollection.insertOne({
     name: 'Pedro',
     email: 'pedro.contato.email@mail.com',
-    password: '123'
+    password: '123',
+    role: 'admin'
   })
   const accessToken = sign({ id: insertedId.toString() }, env.jwtSecret)
   await accountCollection.updateOne({
@@ -25,6 +26,20 @@ const mockAccessToken = async (): Promise<string> => {
     }
   })
   return accessToken
+}
+
+const insertSurvey = async (date = new Date()): Promise<string> => {
+  const { insertedId } = await surveyCollection.insertOne({
+    question: 'Question',
+    answers: [{
+      answer: 'Answer 1',
+      image: 'http://image-name.com'
+    }, {
+      answer: 'Answer 2'
+    }],
+    date
+  })
+  return insertedId.toString()
 }
 
 describe('SurveyResult GraphQL', () => {
@@ -41,27 +56,15 @@ describe('SurveyResult GraphQL', () => {
 
   beforeEach(async () => {
     surveyCollection = MongoHelper.getCollection('surveys')
-    await surveyCollection.deleteMany({})
     accountCollection = MongoHelper.getCollection('accounts')
+    await surveyCollection.deleteMany({})
     await accountCollection.deleteMany({})
   })
 
   describe('SurveyResult Query', () => {
-    test('Should return SurveyResult', async () => {
-      const accessToken = await mockAccessToken()
-      const now = new Date()
-      const surveyRes = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: now
-      })
-      const query = `query {
-        surveyResult (surveyId: "${surveyRes.insertedId.toHexString()}") {
+    const mountQuery = (surveyId: string): string => `
+      query {
+        surveyResult (surveyId: "${surveyId}") {
           question
           answers {
             answer
@@ -71,14 +74,21 @@ describe('SurveyResult GraphQL', () => {
           }
           date
         }
-      }`
+      }
+    `
+
+    test('Should return SurveyResult', async () => {
+      const accessToken = await mockAccessToken()
+      const date = new Date()
+      const surveyId = await insertSurvey(date)
+      const query = mountQuery(surveyId)
       const res = await request(app)
         .post('/graphql')
         .set('x-access-token', accessToken)
         .send({ query })
       expect(res.status).toBe(200)
       expect(res.body.data.surveyResult.question).toBe('Question')
-      expect(res.body.data.surveyResult.date).toBe(now.toISOString())
+      expect(res.body.data.surveyResult.date).toBe(date.toISOString())
       expect(res.body.data.surveyResult.answers).toEqual([{
         answer: 'Answer 1',
         count: 0,
@@ -93,28 +103,8 @@ describe('SurveyResult GraphQL', () => {
     })
 
     test('Should return AccessDeniedError if no token is provided', async () => {
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
-      const query = `query {
-        surveyResult (surveyId: "${insertedId.toHexString()}") {
-          question
-          answers {
-            answer
-            count
-            percent
-            isCurrentAccountAnswer
-          }
-          date
-        }
-      }`
+      const surveyId = await insertSurvey()
+      const query = mountQuery(surveyId)
       const res = await request(app)
         .post('/graphql')
         .send({ query })
@@ -125,21 +115,9 @@ describe('SurveyResult GraphQL', () => {
   })
 
   describe('SaveSurveyResult Mutation', () => {
-    test('Should return SurveyResult', async () => {
-      const accessToken = await mockAccessToken()
-      const date = new Date()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date
-      })
-      const query = `mutation {
-        saveSurveyResult (surveyId: "${insertedId.toHexString()}", answer: "Answer 1") {
+    const mountQuery = (surveyId: string): string => `
+      mutation {
+        saveSurveyResult (surveyId: "${surveyId}", answer: "Answer 1") {
           question
           answers {
             answer
@@ -149,7 +127,14 @@ describe('SurveyResult GraphQL', () => {
           }
           date
         }
-      }`
+      }
+    `
+
+    test('Should return SurveyResult', async () => {
+      const accessToken = await mockAccessToken()
+      const date = new Date()
+      const surveyId = await insertSurvey(date)
+      const query = mountQuery(surveyId)
       const res = await request(app)
         .post('/graphql')
         .set('x-access-token', accessToken)
@@ -171,28 +156,8 @@ describe('SurveyResult GraphQL', () => {
     })
 
     test('Should return AccessDeniedError if no token is provided', async () => {
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
-      const query = `mutation {
-        saveSurveyResult (surveyId: "${insertedId.toHexString()}", answer: "Answer 1") {
-          question
-          answers {
-            answer
-            count
-            percent
-            isCurrentAccountAnswer
-          }
-          date
-        }
-      }`
+      const surveyId = await insertSurvey()
+      const query = mountQuery(surveyId)
       const res = await request(app)
         .post('/graphql')
         .send({ query })
