@@ -10,6 +10,17 @@ import { MongoHelper, SurveyMongoRepository } from '@/infra/db'
 let surveyCollection: Collection
 let accountCollection: Collection
 
+const defaultSurvey = {
+  question: 'Question',
+  answers: [{
+    answer: 'Answer 1',
+    image: 'http://image-name.com'
+  }, {
+    answer: 'Answer 2'
+  }],
+  date: new Date()
+}
+
 const mockAccessToken = async (): Promise<string> => {
   const { insertedId } = await accountCollection.insertOne({
     name: 'any_name',
@@ -26,6 +37,11 @@ const mockAccessToken = async (): Promise<string> => {
     }
   })
   return accessToken
+}
+
+const insertSurvey = async (): Promise<string> => {
+  const { insertedId } = await surveyCollection.insertOne(defaultSurvey)
+  return insertedId.toString()
 }
 
 describe('Survey Routes', () => {
@@ -53,15 +69,7 @@ describe('Survey Routes', () => {
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
-        .send({
-          question: 'any_question',
-          answers: [{
-            answer: 'any_answer_one',
-            image: 'any_image_url'
-          }, {
-            answer: 'any_answer_two'
-          }]
-        })
+        .send(defaultSurvey)
         .expect(204)
     })
 
@@ -78,15 +86,7 @@ describe('Survey Routes', () => {
     test('Should return 403 on add survey without accessToken', async () => {
       await request(app)
         .post('/api/surveys')
-        .send({
-          question: 'any_question',
-          answers: [{
-            answer: 'any_answer_one',
-            image: 'any_image_url'
-          }, {
-            answer: 'any_answer_two'
-          }]
-        })
+        .send(defaultSurvey)
         .expect(403)
     })
 
@@ -98,30 +98,14 @@ describe('Survey Routes', () => {
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
-        .send({
-          question: 'any_question',
-          answers: [{
-            answer: 'any_answer_one',
-            image: 'any_image_url'
-          }, {
-            answer: 'any_answer_two'
-          }]
-        })
+        .send(defaultSurvey)
         .expect(500)
     })
   })
 
   describe('GET /surveys', () => {
     test('Should return 200 with survey data', async () => {
-      await surveyCollection.insertOne({
-        question: 'any_question',
-        answers: [{
-          answer: 'any_answer_one',
-          image: 'any_image_url'
-        }, {
-          answer: 'any_answer_two'
-        }]
-      })
+      await insertSurvey()
       const accessToken = await mockAccessToken()
       await request(app)
         .get('/api/surveys')

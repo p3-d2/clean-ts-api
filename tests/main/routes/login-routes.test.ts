@@ -9,11 +9,26 @@ import { MongoHelper, AccountMongoRepository } from '@/infra/db'
 
 let accountCollection: Collection
 
-const insertFakeUser = async (): Promise<void> => {
+const defaultUser = {
+  name: 'any_name',
+  email: 'any_email@mail.com',
+  password: 'any_password'
+}
+
+const userSign = {
+  ...defaultUser,
+  passwordConfirmation: defaultUser.password
+}
+
+const userLogin = {
+  email: defaultUser.email,
+  password: defaultUser.password
+}
+
+const insertUser = async (): Promise<void> => {
   const password = await bcrypt.hash('any_password', 12)
   await accountCollection.insertOne({
-    name: 'any_name',
-    email: 'any_email@mail.com',
+    ...defaultUser,
     password
   })
 }
@@ -39,12 +54,7 @@ describe('Login Routes', () => {
     test('Should return 200 on signup', async () => {
       await request(app)
         .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .send(userSign)
         .expect(200)
     })
 
@@ -64,9 +74,7 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/signup')
         .send({
-          name: 'any_name',
-          email: 'invalid_email',
-          password: 'any_password',
+          ...userSign,
           passwordConfirmation: 'invalid_password_confirmation'
         })
         .expect(400)
@@ -76,24 +84,17 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/signup')
         .send({
-          name: 'any_name',
-          email: 'invalid_email',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
+          ...userSign,
+          email: 'invalid_email'
         })
         .expect(400)
     })
 
     test('Should return 403 if email is already in use', async () => {
-      await insertFakeUser()
+      await insertUser()
       await request(app)
         .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .send(userSign)
         .expect(403)
     })
 
@@ -103,12 +104,7 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .send(userSign)
         .expect(500)
     })
 
@@ -118,12 +114,7 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .send(userSign)
         .expect(500)
     })
 
@@ -133,12 +124,7 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .send(userSign)
         .expect(500)
     })
 
@@ -148,25 +134,17 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .send(userSign)
         .expect(500)
     })
   })
 
   describe('POST /login', () => {
     test('Should return 200 on login', async () => {
-      await insertFakeUser()
+      await insertUser()
       await request(app)
         .post('/api/login')
-        .send({
-          email: 'any_email@mail.com',
-          password: 'any_password'
-        })
+        .send(userLogin)
         .expect(200)
     })
 
@@ -175,17 +153,17 @@ describe('Login Routes', () => {
         password: 'any_password'
       }
       await request(app)
-        .post('/api/signup')
+        .post('/api/login')
         .send(userWithoutEmail)
         .expect(400)
     })
 
     test('Should return 400 if email provided not is valid', async () => {
       await request(app)
-        .post('/api/signup')
+        .post('/api/login')
         .send({
-          email: 'invalid_email',
-          password: 'any_password'
+          ...userLogin,
+          email: 'invalid_email'
         })
         .expect(400)
     })
@@ -193,10 +171,7 @@ describe('Login Routes', () => {
     test('Should return 401 with invalid credentials', async () => {
       await request(app)
         .post('/api/login')
-        .send({
-          email: 'any_email@mail.com',
-          password: 'any_password'
-        })
+        .send(userLogin)
         .expect(401)
     })
 
@@ -204,14 +179,10 @@ describe('Login Routes', () => {
       jest.spyOn(jwt, 'sign').mockImplementationOnce(() => {
         throw new Error()
       })
+      await insertUser()
       await request(app)
-        .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .post('/api/login')
+        .send(userLogin)
         .expect(500)
     })
 
@@ -219,14 +190,10 @@ describe('Login Routes', () => {
       jest.spyOn(AccountMongoRepository.prototype, 'updateAccessToken').mockImplementationOnce(() => {
         throw new Error()
       })
+      await insertUser()
       await request(app)
-        .post('/api/signup')
-        .send({
-          name: 'any_name',
-          email: 'any_email@mail.com',
-          password: 'any_password',
-          passwordConfirmation: 'any_password'
-        })
+        .post('/api/login')
+        .send(userLogin)
         .expect(500)
     })
   })

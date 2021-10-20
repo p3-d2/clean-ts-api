@@ -27,6 +27,25 @@ const mockAccessToken = async (): Promise<string> => {
   return accessToken
 }
 
+const insertSurvey = async (): Promise<string> => {
+  const { insertedId } = await surveyCollection.insertOne({
+    question: 'Question',
+    answers: [{
+      answer: 'Answer 1',
+      image: 'http://image-name.com'
+    }, {
+      answer: 'Answer 2'
+    }],
+    date: new Date()
+  })
+  return insertedId.toString()
+}
+
+const getUrl = async (): Promise<string> => {
+  const surveyId = await insertSurvey()
+  return `/api/surveys/${surveyId}/results`
+}
+
 describe('Survey Routes', () => {
   let app: Express
 
@@ -49,18 +68,8 @@ describe('Survey Routes', () => {
   describe('PUT /surveys/:surveyId/results', () => {
     test('Should return 200 on save survey result with accessToken', async () => {
       const accessToken = await mockAccessToken()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
       await request(app)
-        .put(`/api/surveys/${insertedId.toString()}/results`)
+        .put(await getUrl())
         .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 1'
@@ -79,9 +88,9 @@ describe('Survey Routes', () => {
 
     test('Should return 403 if the survey_id passed in the URL is invalid', async () => {
       const accessToken = await mockAccessToken()
-      const invalidSurveyResultId = '000aaaaa000000000a000a00'
+      const invalidSurveyId = '000aaaaa000000000a000a00'
       await request(app)
-        .put(`/api/surveys/${invalidSurveyResultId}/results`)
+        .put(`/api/surveys/${invalidSurveyId}/results`)
         .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 1'
@@ -91,18 +100,8 @@ describe('Survey Routes', () => {
 
     test('Should return 403 if the response sent by the client is an invalid response', async () => {
       const accessToken = await mockAccessToken()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
       await request(app)
-        .put(`/api/surveys/${insertedId.toString()}/results`)
+        .put(await getUrl())
         .set('x-access-token', accessToken)
         .send({
           answer: 'invalid_answer'
@@ -115,18 +114,8 @@ describe('Survey Routes', () => {
         throw new Error()
       })
       const accessToken = await mockAccessToken()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
       await request(app)
-        .put(`/api/surveys/${insertedId.toString()}/results`)
+        .put(await getUrl())
         .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 2'
@@ -139,18 +128,8 @@ describe('Survey Routes', () => {
         throw new Error()
       })
       const accessToken = await mockAccessToken()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
       await request(app)
-        .put(`/api/surveys/${insertedId.toString()}/results`)
+        .put(await getUrl())
         .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 2',
@@ -164,18 +143,8 @@ describe('Survey Routes', () => {
         throw new Error()
       })
       const accessToken = await mockAccessToken()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
       await request(app)
-        .put(`/api/surveys/${insertedId.toString()}/results`)
+        .put(await getUrl())
         .set('x-access-token', accessToken)
         .send({
           answer: 'Answer 2'
@@ -187,18 +156,8 @@ describe('Survey Routes', () => {
   describe('GET /surveys/:surveyId/results', () => {
     test('Should return 200 on load survey result with accessToken', async () => {
       const accessToken = await mockAccessToken()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
       await request(app)
-        .get(`/api/surveys/${insertedId.toString()}/results`)
+        .get(await getUrl())
         .set('x-access-token', accessToken)
         .expect(200)
     })
@@ -214,18 +173,8 @@ describe('Survey Routes', () => {
         throw new Error()
       })
       const accessToken = await mockAccessToken()
-      const { insertedId } = await surveyCollection.insertOne({
-        question: 'Question',
-        answers: [{
-          answer: 'Answer 1',
-          image: 'http://image-name.com'
-        }, {
-          answer: 'Answer 2'
-        }],
-        date: new Date()
-      })
       await request(app)
-        .get(`/api/surveys/${insertedId.toString()}/results`)
+        .get(await getUrl())
         .set('x-access-token', accessToken)
         .expect(500)
     })
