@@ -1,4 +1,3 @@
-import { hash } from 'bcrypt'
 import request from 'supertest'
 import { Express } from 'express'
 import { Collection } from 'mongodb'
@@ -6,22 +5,9 @@ import { Collection } from 'mongodb'
 import { MongoHelper } from '@/infra/db'
 import { setupApp } from '@/main/config/app'
 
+import { insertUser, user } from '@/tests/helpers'
+
 let accountCollection: Collection
-
-const defaultUser = {
-  name: 'Pedro',
-  email: 'pedro.contato.email@gmail.com',
-  password: '123'
-}
-
-const insertUser = async (): Promise<string> => {
-  const password = await hash(defaultUser.password, 12)
-  const { insertedId } = await accountCollection.insertOne({
-    ...defaultUser,
-    password
-  })
-  return insertedId.toString()
-}
 
 describe('Login GraphQL', () => {
   let app: Express
@@ -42,7 +28,7 @@ describe('Login GraphQL', () => {
 
   describe('Login Query', () => {
     const query = `query {
-      login (email: "${defaultUser.email}", password: "${defaultUser.password}") {
+      login (email: "${user.email}", password: "${user.password}") {
         accessToken
         name
       }
@@ -55,7 +41,7 @@ describe('Login GraphQL', () => {
         .send({ query })
       expect(res.status).toBe(200)
       expect(res.body.data.login.accessToken).toBeTruthy()
-      expect(res.body.data.login.name).toBe(defaultUser.name)
+      expect(res.body.data.login.name).toBe(user.name)
     })
 
     test('Should return UnauthorizedError on invalid credentials', async () => {
@@ -70,7 +56,7 @@ describe('Login GraphQL', () => {
 
   describe('SignUp Mutation', () => {
     const query = `mutation {
-      signUp (name: "${defaultUser.name}", email: "${defaultUser.email}", password: "${defaultUser.password}", passwordConfirmation: "${defaultUser.password}") {
+      signUp (name: "${user.name}", email: "${user.email}", password: "${user.password}", passwordConfirmation: "${user.password}") {
         accessToken
         name
       }
@@ -82,7 +68,7 @@ describe('Login GraphQL', () => {
         .send({ query })
       expect(res.status).toBe(200)
       expect(res.body.data.signUp.accessToken).toBeTruthy()
-      expect(res.body.data.signUp.name).toBe(defaultUser.name)
+      expect(res.body.data.signUp.name).toBe(user.name)
     })
 
     test('Should return EmailInUseError on invalid data', async () => {

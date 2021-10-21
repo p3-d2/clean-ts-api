@@ -1,48 +1,14 @@
 import request from 'supertest'
 import { Express } from 'express'
-import { sign } from 'jsonwebtoken'
 import { Collection } from 'mongodb'
 
-import env from '@/main/config/env'
 import { setupApp } from '@/main/config/app'
 import { MongoHelper, SurveyMongoRepository } from '@/infra/db'
 
+import { survey, insertSurvey, mockAccessToken } from '@/tests/helpers'
+
 let surveyCollection: Collection
 let accountCollection: Collection
-
-const defaultSurvey = {
-  question: 'Question',
-  answers: [{
-    answer: 'Answer 1',
-    image: 'http://image-name.com'
-  }, {
-    answer: 'Answer 2'
-  }],
-  date: new Date()
-}
-
-const mockAccessToken = async (): Promise<string> => {
-  const { insertedId } = await accountCollection.insertOne({
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password',
-    role: 'admin'
-  })
-  const accessToken = sign({ id: insertedId }, env.jwtSecret)
-  await accountCollection.updateOne({
-    _id: insertedId
-  }, {
-    $set: {
-      accessToken
-    }
-  })
-  return accessToken
-}
-
-const insertSurvey = async (): Promise<string> => {
-  const { insertedId } = await surveyCollection.insertOne(defaultSurvey)
-  return insertedId.toString()
-}
 
 describe('Survey Routes', () => {
   let app: Express
@@ -65,17 +31,17 @@ describe('Survey Routes', () => {
 
   describe('POST /surveys', () => {
     test('Should return 204 on add survey with valid accessToken', async () => {
-      const accessToken = await mockAccessToken()
+      const accessToken = await mockAccessToken('admin')
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
-        .send(defaultSurvey)
+        .send(survey)
         .expect(204)
     })
 
     test('Should return 400 if any field not is provided', async () => {
       const surveyWithoutAnswers = { question: 'any_question' }
-      const accessToken = await mockAccessToken()
+      const accessToken = await mockAccessToken('admin')
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
@@ -86,7 +52,7 @@ describe('Survey Routes', () => {
     test('Should return 403 on add survey without accessToken', async () => {
       await request(app)
         .post('/api/surveys')
-        .send(defaultSurvey)
+        .send(survey)
         .expect(403)
     })
 
@@ -94,11 +60,11 @@ describe('Survey Routes', () => {
       jest.spyOn(SurveyMongoRepository.prototype, 'add').mockImplementationOnce(() => {
         throw new Error()
       })
-      const accessToken = await mockAccessToken()
+      const accessToken = await mockAccessToken('admin')
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
-        .send(defaultSurvey)
+        .send(survey)
         .expect(500)
     })
   })

@@ -1,45 +1,14 @@
 import request from 'supertest'
-import { sign } from 'jsonwebtoken'
 import { Express } from 'express'
 import { Collection } from 'mongodb'
 
-import env from '@/main/config/env'
 import { setupApp } from '@/main/config/app'
 import { MongoHelper, SurveyResultMongoRepository } from '@/infra/db'
 
+import { insertSurvey, mockAccessToken } from '@/tests/helpers'
+
 let surveyCollection: Collection
 let accountCollection: Collection
-
-const mockAccessToken = async (): Promise<string> => {
-  const { insertedId } = await accountCollection.insertOne({
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'any_password'
-  })
-  const accessToken = sign({ id: insertedId.toString() }, env.jwtSecret)
-  await accountCollection.updateOne({
-    _id: insertedId
-  }, {
-    $set: {
-      accessToken
-    }
-  })
-  return accessToken
-}
-
-const insertSurvey = async (): Promise<string> => {
-  const { insertedId } = await surveyCollection.insertOne({
-    question: 'Question',
-    answers: [{
-      answer: 'Answer 1',
-      image: 'http://image-name.com'
-    }, {
-      answer: 'Answer 2'
-    }],
-    date: new Date()
-  })
-  return insertedId.toString()
-}
 
 const getUrl = async (): Promise<string> => {
   const surveyId = await insertSurvey()

@@ -7,31 +7,9 @@ import { Collection } from 'mongodb'
 import { setupApp } from '@/main/config/app'
 import { MongoHelper, AccountMongoRepository } from '@/infra/db'
 
+import { insertUser, signUpUser, loginUser } from '@/tests/helpers'
+
 let accountCollection: Collection
-
-const defaultUser = {
-  name: 'any_name',
-  email: 'any_email@mail.com',
-  password: 'any_password'
-}
-
-const userSign = {
-  ...defaultUser,
-  passwordConfirmation: defaultUser.password
-}
-
-const userLogin = {
-  email: defaultUser.email,
-  password: defaultUser.password
-}
-
-const insertUser = async (): Promise<void> => {
-  const password = await bcrypt.hash('any_password', 12)
-  await accountCollection.insertOne({
-    ...defaultUser,
-    password
-  })
-}
 
 describe('Login Routes', () => {
   let app: Express
@@ -54,16 +32,13 @@ describe('Login Routes', () => {
     test('Should return 200 on signup', async () => {
       await request(app)
         .post('/api/signup')
-        .send(userSign)
+        .send(signUpUser)
         .expect(200)
     })
 
     test('Should return 400 if any field not is provided', async () => {
-      const userWithoutEmail = {
-        name: 'any_name',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+      const userWithoutEmail = { ...signUpUser }
+      delete userWithoutEmail.email
       await request(app)
         .post('/api/signup')
         .send(userWithoutEmail)
@@ -74,7 +49,7 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/signup')
         .send({
-          ...userSign,
+          ...signUpUser,
           passwordConfirmation: 'invalid_password_confirmation'
         })
         .expect(400)
@@ -84,7 +59,7 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/signup')
         .send({
-          ...userSign,
+          ...signUpUser,
           email: 'invalid_email'
         })
         .expect(400)
@@ -94,7 +69,7 @@ describe('Login Routes', () => {
       await insertUser()
       await request(app)
         .post('/api/signup')
-        .send(userSign)
+        .send(signUpUser)
         .expect(403)
     })
 
@@ -104,7 +79,7 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send(userSign)
+        .send(signUpUser)
         .expect(500)
     })
 
@@ -114,7 +89,7 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send(userSign)
+        .send(signUpUser)
         .expect(500)
     })
 
@@ -124,7 +99,7 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send(userSign)
+        .send(signUpUser)
         .expect(500)
     })
 
@@ -134,7 +109,7 @@ describe('Login Routes', () => {
       })
       await request(app)
         .post('/api/signup')
-        .send(userSign)
+        .send(signUpUser)
         .expect(500)
     })
   })
@@ -144,7 +119,7 @@ describe('Login Routes', () => {
       await insertUser()
       await request(app)
         .post('/api/login')
-        .send(userLogin)
+        .send(loginUser)
         .expect(200)
     })
 
@@ -162,7 +137,7 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/login')
         .send({
-          ...userLogin,
+          ...loginUser,
           email: 'invalid_email'
         })
         .expect(400)
@@ -171,7 +146,7 @@ describe('Login Routes', () => {
     test('Should return 401 with invalid credentials', async () => {
       await request(app)
         .post('/api/login')
-        .send(userLogin)
+        .send(loginUser)
         .expect(401)
     })
 
@@ -182,7 +157,7 @@ describe('Login Routes', () => {
       await insertUser()
       await request(app)
         .post('/api/login')
-        .send(userLogin)
+        .send(loginUser)
         .expect(500)
     })
 
@@ -193,7 +168,7 @@ describe('Login Routes', () => {
       await insertUser()
       await request(app)
         .post('/api/login')
-        .send(userLogin)
+        .send(loginUser)
         .expect(500)
     })
   })

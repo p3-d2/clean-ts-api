@@ -1,45 +1,14 @@
 import request from 'supertest'
 import { Express } from 'express'
-import { sign } from 'jsonwebtoken'
 import { Collection } from 'mongodb'
 
-import env from '@/main/config/env'
 import { MongoHelper } from '@/infra/db'
 import { setupApp } from '@/main/config/app'
 
+import { insertSurvey, mockAccessToken } from '@/tests/helpers'
+
 let surveyCollection: Collection
 let accountCollection: Collection
-
-const mockAccessToken = async (): Promise<string> => {
-  const { insertedId } = await accountCollection.insertOne({
-    name: 'Pedro',
-    email: 'pedro.contato.email@mail.com',
-    password: '123'
-  })
-  const accessToken = sign({ id: insertedId.toString() }, env.jwtSecret)
-  await accountCollection.updateOne({
-    _id: insertedId
-  }, {
-    $set: {
-      accessToken
-    }
-  })
-  return accessToken
-}
-
-const insertSurvey = async (date = new Date()): Promise<string> => {
-  const { insertedId } = await surveyCollection.insertOne({
-    question: 'Question',
-    answers: [{
-      answer: 'Answer 1',
-      image: 'http://image-name.com'
-    }, {
-      answer: 'Answer 2'
-    }],
-    date
-  })
-  return insertedId.toString()
-}
 
 describe('Survey GraphQL', () => {
   let app: Express

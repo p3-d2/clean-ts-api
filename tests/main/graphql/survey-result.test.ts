@@ -1,46 +1,14 @@
 import request from 'supertest'
 import { Express } from 'express'
-import { sign } from 'jsonwebtoken'
 import { Collection } from 'mongodb'
 
 import { MongoHelper } from '@/infra/db'
-import env from '@/main/config/env'
 import { setupApp } from '@/main/config/app'
+
+import { survey, insertSurvey, mockAccessToken } from '@/tests/helpers'
 
 let surveyCollection: Collection
 let accountCollection: Collection
-
-const mockAccessToken = async (): Promise<string> => {
-  const { insertedId } = await accountCollection.insertOne({
-    name: 'Pedro',
-    email: 'pedro.contato.email@mail.com',
-    password: '123',
-    role: 'admin'
-  })
-  const accessToken = sign({ id: insertedId.toString() }, env.jwtSecret)
-  await accountCollection.updateOne({
-    _id: insertedId
-  }, {
-    $set: {
-      accessToken
-    }
-  })
-  return accessToken
-}
-
-const insertSurvey = async (date = new Date()): Promise<string> => {
-  const { insertedId } = await surveyCollection.insertOne({
-    question: 'Question',
-    answers: [{
-      answer: 'Answer 1',
-      image: 'http://image-name.com'
-    }, {
-      answer: 'Answer 2'
-    }],
-    date
-  })
-  return insertedId.toString()
-}
 
 describe('SurveyResult GraphQL', () => {
   let app: Express
@@ -87,7 +55,7 @@ describe('SurveyResult GraphQL', () => {
         .set('x-access-token', accessToken)
         .send({ query })
       expect(res.status).toBe(200)
-      expect(res.body.data.surveyResult.question).toBe('Question')
+      expect(res.body.data.surveyResult.question).toBe(survey.question)
       expect(res.body.data.surveyResult.date).toBe(date.toISOString())
       expect(res.body.data.surveyResult.answers).toEqual([{
         answer: 'Answer 1',
@@ -140,7 +108,7 @@ describe('SurveyResult GraphQL', () => {
         .set('x-access-token', accessToken)
         .send({ query })
       expect(res.status).toBe(200)
-      expect(res.body.data.saveSurveyResult.question).toBe('Question')
+      expect(res.body.data.saveSurveyResult.question).toBe(survey.question)
       expect(res.body.data.saveSurveyResult.date).toBe(date.toISOString())
       expect(res.body.data.saveSurveyResult.answers).toEqual([{
         answer: 'Answer 1',
