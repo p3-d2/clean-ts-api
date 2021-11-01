@@ -983,10 +983,10 @@
   resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.2.1.tgz#83ecf4ec22a8c218c71db25f316619fe5b986011"
   integrity sha512-7cTXwKP/HLOPVgjg+YhBdQ7bMiobGMuoBmrGmqwIWJv8elC6t1DfVc/mn4fD9UE1IjhwmhaQ5pGVXkmXbH0rhg==
 
-"@types/validator@^13.6.4":
-  version "13.6.4"
-  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.6.4.tgz#dd3637c75dc9e10e29f37979c73e1bd5368798b7"
-  integrity sha512-M9Lk74A8hjJIxnSW1+TcPo7Iv4arXBUvd91HuucGPjXVKRAhFHWP5HFpWjxhNWrm7HYoJwuyWpB+BKLgFYHq4w==
+"@types/validator@^13.6.6":
+  version "13.6.6"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.6.6.tgz#6e6e2d086148db5ae14851614971b715670cbd52"
+  integrity sha512-+qogUELb4gMhrMjSh/seKmGVvN+uQLfyqJAqYRWqVHsvBsUO2xDBCL8CJ/ZSukbd8vXaoYbpIssAmfLEzzBHEw==
 
 "@types/webidl-conversions@*":
   version "6.1.1"
