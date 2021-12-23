@@ -65,7 +65,7 @@
     "mongo-round": "^1.0.0",
     "mongodb": "^4.1.3",
     "nodemon": "^2.0.14",
-    "swagger-ui-express": "4.1.6",
+    "swagger-ui-express": "4.2.0",
     "validator": "^13.6.0"
   },
   "engines": {
