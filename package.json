@@ -55,7 +55,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "apollo-server-express": "^3.4.0",
+    "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "graphql": "^15.6.1",
